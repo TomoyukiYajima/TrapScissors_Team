@@ -11,9 +11,13 @@ public class FoodUI : MonoBehaviour
     private RectTransform _myRect;
     private float _blackColor = 0.5f;
     private float _smallScale = 0.6f;
+    private float[] _positions = {-35, 0, 35};
+    [SerializeField]
+    private int _posNumber;
     // Use this for initialization
     void Start()
     {
+        _toPosition = _positions[_posNumber];
         _foodUIMove = this.transform.parent.GetComponent<FoodUIMove>();
         _myRect = this.GetComponent<RectTransform>();
         if(_foodUIMove.SelectFood() != this.gameObject)
@@ -39,19 +43,21 @@ public class FoodUI : MonoBehaviour
 
     public void RightMoveRotation(GameObject obje)
     {
+        _posNumber++;
+        if (_posNumber > 2) _posNumber = 0;
         LeanTween.cancel(this.gameObject);
         BlackFade(obje);
-        _toPosition = this.transform.localPosition.x + 35;
-        if (_toPosition > 35) _toPosition = -35;
+        _toPosition = _positions[_posNumber];
         LeanTween.move(_myRect, new Vector2(_toPosition, this.transform.localPosition.y), 0.1f);
     }
 
     public void LeftMoveRotation(GameObject obje)
     {
+        _posNumber--;
+        if (_posNumber < 0) _posNumber = 2;
         LeanTween.cancel(this.gameObject);
         BlackFade(obje);
-        _toPosition = this.transform.localPosition.x - 35;
-        if (_toPosition < -35) _toPosition = 35;
+        _toPosition = _positions[_posNumber];
         LeanTween.move(_myRect, new Vector2(_toPosition, this.transform.localPosition.y), 0.1f);
     }
 
