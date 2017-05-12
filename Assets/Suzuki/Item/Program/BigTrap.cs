@@ -15,17 +15,17 @@ public class BigTrap : MonoBehaviour
     [SerializeField, TooltipAttribute("Resultで表示されるオブジェクト")]
     private GameObject _result;
     private bool _flg;
-    #region 鋏むときに必要な変数
-    //鋏むんでいるオブジェクトを入れる
-    [SerializeField]
+    #region 挟むときに必要な変数
+    //鋏んでいるオブジェクトを入れる
+    [SerializeField] 
     private GameObject _targetAnimal;
-    private SceneManagerScript _scene;
     #endregion
+    private SceneManagerScript _scene;
 
     //スタートよりも前に動く変数
     void Awake()
     {
-       
+
     }
 
     // Use this for initialization
@@ -34,7 +34,6 @@ public class BigTrap : MonoBehaviour
         _targetAnimal = null;
         _state = TrapState.WAIT;
         _flg = false;
-        
     }
 
     // Update is called once per frame
@@ -45,15 +44,14 @@ public class BigTrap : MonoBehaviour
     //当たっている最中も取得する当たり判定
     void OnTriggerEnter(Collider col)
     {
-        if(col.tag == "LargeEnemy"|| col.tag == "SmallEnemy")
+        if (col.tag == "LargeEnemy" || col.tag == "SmallEnemy")
         {
-            
-            ChengeState(TrapState.CAPTURE);   
-                    
+
+            ChengeState(TrapState.CAPTURE);
+
             _targetAnimal = col.gameObject;
             _flg = true;
             SceneManagerScript.sceneManager.FadeBlack();
-            
             _result.SetActive(true);
         }
     }

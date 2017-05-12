@@ -4,36 +4,41 @@ using System.Collections;
 
 public class ResultScene : MonoBehaviour
 {
-    private SpriteRenderer _sp;
-    private SceneManagerScript _scene;
+    public enum ResultScoreState
+    {
+        FIRST,       //Scoreが低い時
+        SECOND,      //Scoreが中間の時
+        THIRD,       //Scpreが高い時
+    }
 
-
-    
+    public ResultScoreState _rstate;
+    private int _score;
     // Use this for initialization
     void Start()
     {
-        _scene = SceneManagerScript.FindObjectOfType<SceneManagerScript>();
-        _sp = SpriteRenderer.FindObjectOfType<SpriteRenderer>();
-        _sp.color = new Color(0, 0, 0, 0);
-        Result();
+        _rstate = ResultScoreState.FIRST;
+        _score = 0;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Result();
+       // _score = GameManager.gameManager.GetScore();
     }
     void Result()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (_score >= 100&&_score<200)  //適当
         {
-            _scene.FadeBlack();
-            _sp.color = new Color(0, 0, 0, 1);
+            ChengeScoreState(ResultScoreState.SECOND);
         }
-        if (Input.GetKeyDown(KeyCode.G))
+        else if (_score >= 200)         //適当
         {
-            _scene.FadeWhite();
-            _sp.color = new Color(0, 0, 0, 0);
+            ChengeScoreState(ResultScoreState.THIRD);
         }
+    }
+    public void ChengeScoreState(ResultScoreState rstate)
+    {
+        _rstate = rstate;
     }
 }
