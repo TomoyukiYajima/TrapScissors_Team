@@ -12,33 +12,39 @@ public class ResultScene : MonoBehaviour
     }
 
     public ResultScoreState _rstate;
-    private int _score;
+    public int _addscore;   //出スコア
+    private int _inscore;   //入スコア
     // Use this for initialization
     void Start()
     {
         _rstate = ResultScoreState.FIRST;
-        _score = 0;
+        _inscore = 0;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-       // _score = GameManager.gameManager.GetScore();
+        // _inscore = GameManager.gameManager.GetScore();
+        //AddScore(_addscore);
     }
-    void Result()
+    void StateChange()
     {
-        if (_score >= 100&&_score<200)  //適当
+        if (_inscore >= 100&&_inscore<200)  //適当
         {
-            ChengeScoreState(ResultScoreState.SECOND);
+            ChangeScoreState(ResultScoreState.SECOND);
         }
-        else if (_score >= 200)         //適当
+        else if (_inscore >= 200)         //適当
         {
-            ChengeScoreState(ResultScoreState.THIRD);
+            ChangeScoreState(ResultScoreState.THIRD);
         }
     }
-    public void ChengeScoreState(ResultScoreState rstate)
+    public void ChangeScoreState(ResultScoreState rstate)
     {
         _rstate = rstate;
     }
+    //public void AddScore(int _addscore)
+    //{
+    //    _addscore = _inscore;
+    //}
 }
